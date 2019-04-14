@@ -58,7 +58,18 @@ shinyUI(fluidPage(
       #             max = 100, value = c(40, 60)
       # ),
 
-      actionButton("bouton4", "Sorts")
+      actionButton("bouton4", "Sorts"),
+      
+      
+      ## 5 : Rejeton du Chaos
+      h4("5) Créature aléatoire"),
+      h6("pour 'Rejeton du Chaos' , Chaos 54"),
+      
+      
+      ## 6 : Ogham loot
+      h4("6) Ogham loot"),
+      numericInput("nbOgham6", "Nombre de runes :", 4, min = 1, max = 10, width = "80%"),
+      actionButton("bouton6", "Loot")
     ),
     
     
@@ -66,23 +77,34 @@ shinyUI(fluidPage(
     # Sorties des commandes 
     mainPanel(
       ## 1 : dé normal
-      h4("1) jet de dé normal"),
+      h4("1) Jet de dé normal"),
       verbatimTextOutput("sortie1"),
       
       
       ## 2 : dé ouvert
-      h4("2) jet de dé anima"),
+      h4("2) Jet de dé anima"),
       verbatimTextOutput("sortie2"),
       
       
       ## 3 : dé ouvert
-      h4("3) neg"),
+      h4("3) Effet négatif"),
       verbatimTextOutput("sortie3"),
       
       
       ## 4 : sort random
       h4("4) Sort Random"),
-      verbatimTextOutput("sortie4")
+      verbatimTextOutput("sortie4"),
+      
+      
+      ## 5 : Rejeton
+      h4("5) Rejeton (en cours)"),
+      #verbatimTextOutput("sortie5"),
+      
+      
+      ## 6 : Ogham
+      h4("6) Ogham"),
+      verbatimTextOutput("sortie6")
+      
     )
   )
 ))

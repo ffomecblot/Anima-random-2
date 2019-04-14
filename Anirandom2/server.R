@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+#require(rsconnect)
 
 
 # # # Fonctions externes
@@ -30,30 +31,33 @@ jetPlus <- function(s=90, ec=3, relance=0, verbose=T) {
 }
 
 ## 3
-etatsNeg <- c('Peur : -60 TlA autres que fuir, sauf si passe un test 80 en Impassibilite',
-              'Terreur : ne peut faire que fuir, sauf si passe un test 140 en Impassibilite',
-              'Douleur : -40 TlA sauf si passe un test 80 de Resistance a la douleur',
-              'Douleur extreme : -80 TlA sauf si passe un test 140 de Resistance a la douleur',
-              'Faiblesse physique : -4 en Force, Dexterite, Agilite, Consitution',
-              'Faiblesse mentale : -4 en Intelligence, Pouvoir, Volonte, Perception',
-              'Paralysie partielle : -80 aux jets de combat, -30 aux autres actions et a l initiative',
-              'Paralysie complete : -200 TlA et initiative',
-              'Colere : attaque les cibles les plus proches le plus fort possible, sauf si passe un test 120 en Impassibilite',
-              'Cecite : aveugle et -80 TlA ',
-              'Surdite : ne peut plus entendre',
-              'Mutisme : ne peut plus parler',
-              'Fascination : aucune action active ni se deplacer, sauf si passe un test 120 en Impassibilite',
-              'Degats egaux a la marge d echec',
-              'Degats egaux au double de la marge d echec',
-              'Inconscience',
-              'Hallucinations, sauf si passe un test 140 en Impassibilite',
-              'Folie, sauf si passe un test 140 en Impassibilite',
-              'Petit coup de barre : malus de -20 TlA',
-              'Extenuation : perd 5 points de fatigue (ne reviennent pas a la fin du sort)',
-              'Nausse et mal de crane cinglant : malus de -50 TlA')
+etatsNeg <- c("Peur : -60 TlA autres que fuir, sauf si passe un test 80 en Impassibilité",
+              "Terreur : ne peut faire que fuir, sauf si passe un test 140 en Impassibilité",
+              "Douleur : -40 TlA sauf si passe un test 80 en Résistance à la douleur",
+              "Douleur extreme : -80 TlA sauf si passe un test 140 en Résistance à la douleur",
+              "Faiblesse physique : -4 en Force, Dexterité, Agilité, Consitution",
+              "Faiblesse mentale : -4 en Intelligence, Pouvoir, Volonté, Perception",
+              "Paralysie partielle : -80 aux jets de combat, -30 aux autres actions et à 
+              l initiative",
+              "Paralysie complète : -200 TlA et initiative",
+              "Colere : attaque les cibles les plus proches le plus fort possible, sauf 
+              si passe un test 120 en Impassibilité",
+              "Cécité : aveugle et -80 TlA ",
+              "Surdité : ne peut plus entendre",
+              "Mutisme : ne peut plus parler",
+              "Fascination : aucune action active ni se deplacer, sauf si passe un test
+              120 en Impassibilité",
+              "Dégats egaux à la marge d échec",
+              "Dégats egaux au double de la marge d échec",
+              "Inconscience",
+              "Hallucinations, sauf si passe un test 140 en Impassibilité",
+              "Folie, sauf si passe un test 140 en Impassibilité",
+              "Petit coup de barre : malus de -20 TlA",
+              "Exténuation : perd 5 points de fatigue (ne reviennent pas à la fin du sort)",
+              "Nausé et mal de crane cinglant : malus de -50 TlA")
 
 ## 4
-# # Fonctions
+# # Une voie
 maVoie <- function (lv, selec = 1) {
   # def
   nomsPri <- c("Lumière","Obscurité","Création","Destruction","Nécro","Eau","Feu","Terre",
@@ -96,6 +100,33 @@ sortAuHasard <- function(lvlMax = 40, nb = 1) {
   }
 }
 
+## 6
+resultatOgham <- function(nb) {
+  # Noms
+  Noms <- c("El","Eld","Tir","Nef","Eth","Ith","Tal","Ral","Ort","Thul","Amn","Sol",
+            "Shael","Dol","Hel","Io","Lum","Ko","Fal","Lem","Pul","Um","Mal","Ist",
+            "Gul","Vex","Ohm","Lo","Sur","Ber","Jah","Cham","Zod")
+  
+  # Proba
+  loot <- function(n=1) {
+    u <- integer(n)
+    for (i in 1:n) {
+      u[i] <- min(floor(runif(3,0,33))+1)
+    }
+    return(u)
+  }
+  
+  monLoot <- loot(nb)
+  monLoot <- monLoot[order(monLoot)]
+  
+  a <- table(monLoot)
+  names(a) <- Noms[as.integer(names(a))]
+  
+  print(ifelse(nb >1, "Oghams obtenus :", "Ogham obtenu :"))
+  print(a)
+  
+}
+
 
 
 # # # Exec
@@ -133,5 +164,14 @@ shinyServer(function(input, output) {
       )
   })
   
+  ## 5
+  
+  ## 6
+  output$sortie6 <- renderPrint({ 
+    if (input$bouton6 > 0 ) 
+      isolate(
+        resultatOgham(input$nbOgham6)
+      )
+  })
   
 })
