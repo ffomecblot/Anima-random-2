@@ -68,8 +68,14 @@ shinyUI(fluidPage(
       
       ## 6 : Ogham loot
       h4("6) Ogham loot"),
-      numericInput("nbOgham6", "Nombre de runes :", 4, min = 1, max = 10, width = "80%"),
-      actionButton("bouton6", "Loot")
+      numericInput("nbOgham6", "Nombre de runes :", 4, min = 1, max = 50, width = "80%"),
+      actionButton("bouton6", "Loot"),
+      
+      
+      ## 7 : PNJ 5 tribes
+      h4("7) PNJ (style 5 tribes)"),
+      actionButton("bouton7", "Spawn")
+      
     ),
     
     
@@ -103,7 +109,12 @@ shinyUI(fluidPage(
       
       ## 6 : Ogham
       h4("6) Ogham"),
-      verbatimTextOutput("sortie6")
+      verbatimTextOutput("sortie6"),
+      
+      
+      ## 7 : PNJ
+      h4("7) PNJ (en cours)"),
+      verbatimTextOutput("sortie7")
       
     )
   )

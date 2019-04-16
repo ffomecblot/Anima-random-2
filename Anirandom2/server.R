@@ -34,27 +34,25 @@ jetPlus <- function(s=90, ec=3, relance=0, verbose=T) {
 etatsNeg <- c("Peur : -60 TlA autres que fuir, sauf si passe un test 80 en Impassibilité",
               "Terreur : ne peut faire que fuir, sauf si passe un test 140 en Impassibilité",
               "Douleur : -40 TlA sauf si passe un test 80 en Résistance à la douleur",
-              "Douleur extreme : -80 TlA sauf si passe un test 140 en Résistance à la douleur",
+              "Douleur extrême : -80 TlA sauf si passe un test 140 en Résistance à la douleur",
               "Faiblesse physique : -4 en Force, Dexterité, Agilité, Consitution",
               "Faiblesse mentale : -4 en Intelligence, Pouvoir, Volonté, Perception",
-              "Paralysie partielle : -80 aux jets de combat, -30 aux autres actions et à 
-              l initiative",
+              "Paralysie partielle : -80 aux jets de combat, -30 aux autres actions et à l'initiative",
               "Paralysie complète : -200 TlA et initiative",
-              "Colere : attaque les cibles les plus proches le plus fort possible, sauf 
-              si passe un test 120 en Impassibilité",
+              "Berserk : attaque les cibles les plus proches le plus fort possible, sauf si passe un test 120 en Impassibilité",
               "Cécité : aveugle et -80 TlA ",
               "Surdité : ne peut plus entendre",
               "Mutisme : ne peut plus parler",
-              "Fascination : aucune action active ni se deplacer, sauf si passe un test
-              120 en Impassibilité",
-              "Dégats egaux à la marge d échec",
-              "Dégats egaux au double de la marge d échec",
+              "Fascination : aucune action active ni se deplacer, sauf si passe un test 120 en Impassibilité",
+              "Dégats égaux à la marge d'échec",
+              "Dégats égaux au double de la marge d'échec",
               "Inconscience",
               "Hallucinations, sauf si passe un test 140 en Impassibilité",
-              "Folie, sauf si passe un test 140 en Impassibilité",
+              "Folie passagère, sauf si passe un test 140 en Impassibilité",
+              "Danse incontrolable, sauf si passe un test 200 en Impassibilité",
               "Petit coup de barre : malus de -20 TlA",
               "Exténuation : perd 5 points de fatigue (ne reviennent pas à la fin du sort)",
-              "Nausé et mal de crane cinglant : malus de -50 TlA")
+              "Nausée et mal de crane cinglant : malus de -50 TlA")
 
 ## 4
 # # Une voie
@@ -103,9 +101,9 @@ sortAuHasard <- function(lvlMax = 40, nb = 1) {
 ## 6
 resultatOgham <- function(nb) {
   # Noms
-  Noms <- c("El","Eld","Tir","Nef","Eth","Ith","Tal","Ral","Ort","Thul","Amn","Sol",
-            "Shael","Dol","Hel","Io","Lum","Ko","Fal","Lem","Pul","Um","Mal","Ist",
-            "Gul","Vex","Ohm","Lo","Sur","Ber","Jah","Cham","Zod")
+  Noms <- c("  El"," Eld"," Tir"," Nef"," Eth"," Ith"," Tal"," Ral"," Ort","Thul"," Amn"," Sol",
+            "Shael"," Dol"," Hel"," Io"," Lum"," Ko"," Fal"," Lem"," Pul","  Um"," Mal"," Ist",
+            " Gul"," Vex"," Ohm","  Lo"," Sur"," Ber"," Jah","Cham"," Zod")
   
   # Proba
   loot <- function(n=1) {
@@ -116,6 +114,7 @@ resultatOgham <- function(nb) {
     return(u)
   }
   
+  # Réalisation
   monLoot <- loot(nb)
   monLoot <- monLoot[order(monLoot)]
   
@@ -125,6 +124,27 @@ resultatOgham <- function(nb) {
   print(ifelse(nb >1, "Oghams obtenus :", "Ogham obtenu :"))
   print(a)
   
+}
+
+## 7
+pnj5tribes <- function() {
+  
+  # Catégories
+  categories <- c("Vizirs","Sages","Marchands","Travailleurs","Assassins")
+  
+  # Détails
+  c1 <- c("Chef", "Magicien", "Sensei", "Entrepreneur")
+  c2 <- c("Prêtre", "Vieux", "Lettré", "Juriste", "Bibliothécaire","Traducteur")
+  c3 <- c("Commerçant", "Artisan")
+  c4 <- c("Mineur", "Agriculteur", "Pêcheur")
+  c5 <- c("Barbare", "Mercenaire", "Assassin", "Viking", "Sauvageons")
+  
+  
+  # Réalisation
+  maCat <- sample(1:5,1)
+  print(paste0("Catégorie : ", categories[maCat]))
+  monGars <- sample(get(paste0("c",maCat)),1)
+  print(monGars)
 }
 
 
@@ -171,6 +191,14 @@ shinyServer(function(input, output) {
     if (input$bouton6 > 0 ) 
       isolate(
         resultatOgham(input$nbOgham6)
+      )
+  })
+  
+  ## 7
+  output$sortie7 <- renderPrint({ 
+    if (input$bouton7 > 0 ) 
+      isolate(
+        pnj5tribes()
       )
   })
   

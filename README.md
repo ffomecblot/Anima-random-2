@@ -1,2 +1,2 @@
 # Anima-random-2
-choix aléatoires pour anima v2
+Choix aléatoires pour anima, version2
