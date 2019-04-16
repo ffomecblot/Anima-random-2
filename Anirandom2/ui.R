@@ -73,7 +73,8 @@ shinyUI(fluidPage(
       
       
       ## 7 : PNJ 5 tribes
-      h4("7) PNJ (style 5 tribes)"),
+      h4("7) Métier de PNJ"),
+      numericInput("nbPnj7", "Nombre de péons :", 1, min = 1, max = 20, width = "80%"),
       actionButton("bouton7", "Spawn")
       
     ),
@@ -85,35 +86,41 @@ shinyUI(fluidPage(
       ## 1 : dé normal
       h4("1) Jet de dé normal"),
       verbatimTextOutput("sortie1"),
+      br(),
       
       
       ## 2 : dé ouvert
       h4("2) Jet de dé anima"),
       verbatimTextOutput("sortie2"),
+      br(),
       
       
       ## 3 : dé ouvert
       h4("3) Effet négatif"),
       verbatimTextOutput("sortie3"),
+      br(),
       
       
       ## 4 : sort random
       h4("4) Sort Random"),
       verbatimTextOutput("sortie4"),
+      br(),
       
       
       ## 5 : Rejeton
       h4("5) Rejeton (en cours)"),
       #verbatimTextOutput("sortie5"),
+      br(),
       
       
       ## 6 : Ogham
       h4("6) Ogham"),
       verbatimTextOutput("sortie6"),
+      br(),
       
       
       ## 7 : PNJ
-      h4("7) PNJ (en cours)"),
+      h4("7) PNJ"),
       verbatimTextOutput("sortie7")
       
     )

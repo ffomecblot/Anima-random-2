@@ -39,7 +39,7 @@ etatsNeg <- c("Peur : -60 TlA autres que fuir, sauf si passe un test 80 en Impas
               "Faiblesse mentale : -4 en Intelligence, Pouvoir, Volonté, Perception",
               "Paralysie partielle : -80 aux jets de combat, -30 aux autres actions et à l'initiative",
               "Paralysie complète : -200 TlA et initiative",
-              "Berserk : attaque les cibles les plus proches le plus fort possible, sauf si passe un test 120 en Impassibilité",
+              "Berserk : attaque à vue le plus fort possible, sauf si passe un test 120 en Impassibilité",
               "Cécité : aveugle et -80 TlA ",
               "Surdité : ne peut plus entendre",
               "Mutisme : ne peut plus parler",
@@ -134,7 +134,7 @@ pnj5tribes <- function() {
   
   # Détails
   c1 <- c("Chef", "Magicien", "Sensei", "Entrepreneur")
-  c2 <- c("Prêtre", "Vieux", "Lettré", "Juriste", "Bibliothécaire","Traducteur")
+  c2 <- c("Prêtre", "Vieux", "Lettré", "Juriste","Traducteur")
   c3 <- c("Commerçant", "Artisan")
   c4 <- c("Mineur", "Agriculteur", "Pêcheur")
   c5 <- c("Barbare", "Mercenaire", "Assassin", "Viking", "Sauvageons")
@@ -145,6 +145,69 @@ pnj5tribes <- function() {
   print(paste0("Catégorie : ", categories[maCat]))
   monGars <- sample(get(paste0("c",maCat)),1)
   print(monGars)
+}
+pnjWB <- function(nb=1) {
+  # data
+  lesJobs <- c("Boulanger", "Brasseur", "Boucher", "Distillateur", "Agriculteur", "Pêcheur", "Cueilleur de fruits",
+               "Cueilleur", "Épicier", "Meunier", "Berger", "Fumeur (de viande)", "Fauconnier", "Maréchal-ferrant",
+               "Valet d'écurie", "Maître Chien", "Petite main (étable)", "Artiste", "Fou du roi", "Ménestrel",
+               "Interprète", "Crieur", "Envoyé", "Héraut", "Messager", "Architecte", "Charpentier", "Tonnelier",
+               "Maçon", "Peintre", "Couvreur", "Constructeur de navires", "Charron", "fabricant d'arc et arbalète",
+               "Relieur", "Brasero", "Fabricant de bougie", "Cordonnier", "Lainier", "Drapeur", "Teinturier",
+               "Fourreur", "Souffleur de verre", "Bijoutier", "Tricoteur", "Travailleur du cuir", "Potier", 
+               "cordelier", "Voilier", "Sculpteur", "Cordonnier ", "forgeron", "forgeron", "armurier",
+               "orfèvre", "Fileur", "Tailleur", "Tanneur", "Tisserand", "ébéniste", "Calligraphe", "Cartographe",
+               "Bibliothécaire", "Imprimante", "Savant", "Scribe", "Tuteur", "Chef", "Cuisinier", "Aubergiste",
+               "Scullion", "Serviteur", "Servante", "Prostituée", "Escorte", "Banquier (prêteur d'argent)",
+               "Paysan", "Conteur", "Détective", "Duc", "Garde", "Inquisiteur", "Juge", "Chevalier", "Avocat",
+               "Maréchal", "Prêtre", "Canonnier", "Préfet", "Sacristain", "Shérif", "Taxeur", "Théologien",
+               "Directeur", "Mineur", "Bûcheron", "Alchimiste", "Apothicaire", "Cultiste", "Herboriste",
+               "Médecin", "Chaman", "Devin", "Magicien de rue", "Chirurgien", "Homme sage", "Sorcière", "Archer",
+               "Coiffeur", "Mendiant", "Embouteilleur", "Brûleur à charbon", "Dramaturgiste", "Porteur d'eau",
+               "Bourreau", "Passeur", "Jardinier", "Garde forestier", "Chasseur", "Mercenaire", "Habilleur",
+               "Navigateur", "Gredin", "Ranger", "Marin", "Creuseur", "Voleur", "Vieux", "Négociant",
+               "Commerçant générique", "Agent d'entretiens lol", "Écuyer", "Pâtissier", "Vigneron"
+  )
+  
+  prenoms <- c("Acelin", "Amaury", "Anselme", "Anthiaume", "Arthaud", "Aubert", "Audibert", "Aymeric", "Aymon",
+               "Barthélémi", "Baudouin", "Herbert", "Bérard", "Bernier", "Bertrand", "Bohémond", "Edmond",
+               "Enguerrand", "Ernaut", "Eudes", "Galaad", "Garin", "Garnier", "Gauthier", "Gauvain", "Gibouin",
+               "Gilemer", "Girart", "Godefroy", "Gontran", "Gonzagues", "Grégoire", "Guerri", "Guilhem",
+               "Hardouin", "Herbert", "Herchambaut", "Hubert", "Hugues", "Huon", "Jehan", "Lancelot", "Merlin",
+               "Perceval", "Philibert", "Orderic", "Raymond", "Renaud", "Robert", "Roland", "Savari", "Sigismond",
+               "Tancrède", "Thibaut", "Tristan", "Urbain", "Ybert", "Yvain", "Aalais", "Aliénor", "Alix",
+               "Anthéa", "Aremburge", "Artémise", "Astride", "Aude", "Barberine", "Béatrix", "Berthe",
+               "Blanche", "Gertrude", "Bradamante", "Brunehaut", "Diane", "Ermessende",
+               "Gallendis", "Geneviève", "Grisélidis", "Gudule", "Guenièvre", "Hélix", "Héloïse", "Hermeline",
+               "Hersende", "Hildegarde", "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine",
+               "Milesende", "Morgane", "Ursule", "Viviane", "Abigail", "Charles", "Théophane", "Clodéric")
+  surnoms <- c("le Bel","le Bon","le Brave","le Fier","le Franc","le Hardi","le Subtil","le Matois","le Preux",
+               "le Sagace","le Sage","le Taciturne","Barberousse","Brisefer","Coeur-de-Lion","Dent-de-Loup",
+               "Sang-de-Boeuf","Taillefer","Tuemouches")
+  
+  niveauSocial <- c("Pauvre", "Classe sociale basse", "Classe sociale moyenne",
+                    "Bourgeoisie", "Grande Bourgeoisie", "Basse Noblesse")
+  
+  # Réalisation
+  for (i in 1:nb) {
+    monNom <- sample(prenoms,1)
+    
+    monGars <- sample(lesJobs,1)
+    
+    jet <- sample(1:100, 1)
+    if (jet<8) {monNiveau <- niveauSocial[1]
+    } else if (jet<20) {monNiveau <- niveauSocial[2]
+    } else if (jet<50) {monNiveau <- niveauSocial[3]
+    } else if (jet<70) {monNiveau <- niveauSocial[4]
+    } else if (jet<90) {monNiveau <- niveauSocial[5]
+    } else {monNiveau <- niveauSocial[6]}
+    
+    if (jet>=70) {monNom <- paste(monNom, sample(surnoms,1) )}
+    
+    print(paste0(monNom, ", ",monGars, ", ", monNiveau))
+  }
+  
+  
 }
 
 
@@ -198,7 +261,7 @@ shinyServer(function(input, output) {
   output$sortie7 <- renderPrint({ 
     if (input$bouton7 > 0 ) 
       isolate(
-        pnj5tribes()
+        pnjWB(input$nbPnj7)
       )
   })
   
